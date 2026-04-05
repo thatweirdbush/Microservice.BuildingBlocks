@@ -1,9 +1,9 @@
 # Microservice.BuildingBlocks
 
 [![Framework](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
-[![Architecture](https://img.shields.io/badge/Architecture-DDD%20%2F%20CQRS%20%2F%20Event%20Sourcing-blue.svg)](#)
+[![Architecture](https://img.shields.io/badge/Architecture-DDD%20%2F%20CQRS%20%2F%20Event%20Sourcing%20%2F%20Clean%20Architecture-blue.svg)](#)
 
-A foundational library for building **ASP.NET Web API** Microservices using **.NET 8**. This building block focuses on implementing **Domain-Driven Design (DDD)**, **Command Query Responsibility Segregation (CQRS)** and **Event Sourcing** patterns with a clean separation of concerns.
+A foundational library for building **ASP.NET Web API** Microservices using **.NET 8**. This building block focuses on implementing **Domain-Driven Design (DDD)**, **Command Query Responsibility Segregation (CQRS)**, **Event Sourcing** and **Clean Architecture** patterns with a clean separation of concerns.
 
 ---
 
