@@ -16,7 +16,7 @@ public abstract class Entity<TId> : IEntity<TId>
     /// </summary>
     /// <param name="rule">Business rule to check.</param>
     /// <exception cref="BusinessRuleValidationException">Exception can be thrown on invalid business rule.</exception>
-    protected static void CheckRule(IBusinessRule rule)
+    public static void CheckRule(IBusinessRule rule)
     {
         if (rule.BrokenWhen)
         {
@@ -40,8 +40,8 @@ public abstract class Entity<TId> : IEntity<TId>
     /// <returns></returns>
     public override int GetHashCode() => IsTransient() ? base.GetHashCode() : Id!.GetHashCode() ^ 31;
 
-    public static bool operator ==(Entity<TId> left, Entity<TId> right) => Equals(left, right);
-    public static bool operator !=(Entity<TId> left, Entity<TId> right) => !Equals(left, right);
+    public static bool operator ==(Entity<TId>? left, Entity<TId>? right) => Equals(left, right);
+    public static bool operator !=(Entity<TId>? left, Entity<TId>? right) => !Equals(left, right);
 }
 
 /// <summary>

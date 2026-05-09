@@ -1,4 +1,5 @@
-﻿using Microservice.BuildingBlocks.Domain.ValueObjects;
+using Microservice.BuildingBlocks.Domain.ValueObjects;
+using System.Collections.Concurrent;
 using System.Reflection;
 
 namespace Microservice.BuildingBlocks.Domain.Enumerations;
@@ -11,6 +12,8 @@ namespace Microservice.BuildingBlocks.Domain.Enumerations;
 public abstract record Enumeration<T> : ValueObject
     where T : ValueObject
 {
+    private static readonly ConcurrentDictionary<Type, PropertyInfo?> _valuePropertyCache = new();
+
     /// <summary>
     /// Uses reflection to get all the public static instances of itself.
     /// </summary>
@@ -21,5 +24,20 @@ public abstract record Enumeration<T> : ValueObject
             .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
             .Select(fieldInfo => fieldInfo.GetValue(null))
             .Cast<T>();
+    }
+
+    /// <summary>
+    /// Gets an instance of the enumeration from its integer value.
+    /// </summary>
+    public static T? FromValue(int value)
+    {
+        var prop = _valuePropertyCache.GetOrAdd(typeof(T), type => type.GetProperty("Value"));
+        
+        if (prop == null || prop.PropertyType != typeof(int))
+        {
+            return null;
+        }
+
+        return GetAll().FirstOrDefault(item => (int)prop.GetValue(item)! == value);
     }
 }
