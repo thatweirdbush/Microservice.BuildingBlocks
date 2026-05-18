@@ -17,9 +17,20 @@ public class BusinessRuleValidationException : Exception
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="BusinessRuleValidationException"/> class with a custom message.
+    /// </summary>
+    /// <param name="detail">Custom message detailing the validation failure.</param>
+    public BusinessRuleValidationException(string detail)
+        : base(detail)
+    {
+        BrokenRule = default!;
+        Details = detail;
+    }
+
+    /// <summary>
     /// Rule, that had broken the validation.
     /// </summary>
-    public IBusinessRule BrokenRule { get; }
+    public IBusinessRule? BrokenRule { get; }
 
     /// <summary>
     /// Stores broken rule message.
@@ -29,6 +40,10 @@ public class BusinessRuleValidationException : Exception
     /// <inheritdoc/>
     public override string ToString()
     {
+        if (BrokenRule is null)
+        {
+            return Details;
+        }   
         return $"{BrokenRule.GetType().FullName}: {BrokenRule.Message}";
     }
 }
